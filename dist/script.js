@@ -5,6 +5,7 @@
   const form = document.querySelector('#contact-form');
   const status = document.querySelector('#form-status');
   const whatsappText = 'Hola, he visto tus servicios en joanaps.dev y me gustaría comentarte un proyecto.';
+  const apiPrefix = window.location.pathname.startsWith('/servicios') ? '/servicios' : '';
 
   const trackEvent = (eventName, properties = {}) => {
     window.dispatchEvent(new CustomEvent('services:analytics', { detail: { eventName, properties } }));
@@ -68,7 +69,7 @@
     setContactState('sending', 'Enviando solicitud...');
     trackEvent('contact_form_submit');
     try {
-      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ name: data.name, email: data.email, phone: data.phone || '', projectType: data.projectType, budget: data.budget || '', message: data.message, website: data.website || '' }) });
+      const response = await fetch(`${apiPrefix}/api/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ name: data.name, email: data.email, phone: data.phone || '', projectType: data.projectType, budget: data.budget || '', message: data.message, website: data.website || '' }) });
       if (response.status === 429) throw new Error('rate_limited');
       const result = await response.json();
       if (!response.ok || result.success !== true) throw new Error('contact_request_failed');

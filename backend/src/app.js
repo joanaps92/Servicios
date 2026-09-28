@@ -7,7 +7,7 @@ export function createApp({ sendEmail, trustProxy = false, logger = console }) {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy', trustProxy);
-  app.get('/health', (_req, res) => res.json({ status: 'ok' }));
+  app.get(['/health', '/servicios/health'], (_req, res) => res.json({ status: 'ok' }));
   const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 5,
@@ -15,7 +15,7 @@ export function createApp({ sendEmail, trustProxy = false, logger = console }) {
     legacyHeaders: false,
     message: { success: false, message: 'Has enviado demasiadas solicitudes. Inténtalo más tarde.' },
   });
-  app.post('/api/contact', limiter, (req, res, next) => {
+  app.post(['/api/contact', '/servicios/api/contact'], limiter, (req, res, next) => {
     if (!req.is('application/json')) return res.status(415).json({ success: false, message: 'Formato no admitido' });
     next();
   }, express.json({ limit: '32kb' }), createContactController(sendEmail, logger));

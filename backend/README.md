@@ -1,7 +1,9 @@
 # Formulario de contacto con Resend
 
 El repositorio utiliza HTML y JavaScript estáticos. El backend Express sirve
-`dist` y recibe `POST /api/contact` en el mismo origen. No se introduce Angular.
+`dist` y recibe `POST /api/contact` o `POST /servicios/api/contact`, según si
+Coolify publica la aplicación en la raíz o bajo el prefijo `/servicios`.
+No se introduce Angular.
 Las páginas están disponibles tanto en `/` como en `/servicios/`.
 
 ## Desarrollo
@@ -42,8 +44,9 @@ del SDK, honeypot, límite por IP, proxy y rutas estáticas.
    El proxy debe reemplazar o normalizar X-Forwarded-For y el puerto del
    contenedor no debe quedar expuesto directamente a Internet.
 6. Enrutar `/api/contact`, `/health` y `/servicios/` hacia este contenedor en
-   `joanaps.dev`. Si la raíz del dominio pertenece a otra aplicación, conservarla
-   y configurar estas rutas en el proxy existente, sin eliminar el prefijo `/api`.
+   `joanaps.dev`. Si la aplicación está publicada con el dominio
+   `https://joanaps.dev/servicios`, el formulario usa automáticamente
+   `/servicios/api/contact` y el backend acepta ambas formas.
 7. Redesplegar y comprobar `/health`, logs y el formulario público.
 
 GitHub Pages continúa publicando solo `dist`: no puede ejecutar este backend.

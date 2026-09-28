@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import { readFileSync } from 'node:fs';
 
 const script = readFileSync(new URL('../../dist/script.js', import.meta.url), 'utf8');
-function mount(fetch) {
+function mount(fetch, pathname = '/') {
   const listeners = {};
   const button = { disabled: false };
   const status = {};
@@ -20,19 +20,25 @@ function mount(fetch) {
   };
   vm.runInNewContext(script, {
     document: { querySelector: selector => ({ '#contact-form': form, '#form-status': status })[selector], querySelectorAll: () => [] },
-    window: { dispatchEvent() {} },
+    window: { location: { pathname }, dispatchEvent() {} },
     CustomEvent: class {},
     FormData: class { entries() { return Object.entries(form.elements).map(([key, item]) => [key, item.value]); } },
     fetch,
   });
   return { form, button, status, resets: () => resets, submit: () => listeners.submit({ preventDefault() {} }) };
 }
+test('frontend uses the Coolify /servicios prefix when the page is mounted there', async () => {
+  let requestedUrl;
+  const context = mount((_url, options) => { requestedUrl = _url; return Promise.resolve({ ok: true, status: 200, json: async () => ({ success: true }) }); }, '/servicios/');
+  await context.submit();
+  assert.equal(requestedUrl, '/servicios/api/contact');
+});
 test('WhatsApp button opens a chat with the configured Spanish phone number', () => {
   const listeners = {};
   const link = { href: '', addEventListener: (name, handler) => { listeners[name] = handler; } };
   vm.runInNewContext(script, {
     document: { querySelector: () => null, querySelectorAll: selector => selector === '.whatsapp-link' ? [link] : [] },
-    window: { SERVICES_CONFIG: { whatsappPhone: '655867055' }, dispatchEvent() {} },
+    window: { location: { pathname: '/' }, SERVICES_CONFIG: { whatsappPhone: '655867055' }, dispatchEvent() {} },
     CustomEvent: class {},
   });
   const url = new URL(link.href);
