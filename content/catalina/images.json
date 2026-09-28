@@ -1,0 +1,638 @@
+{
+  "p2-0": {
+    "width": 1800,
+    "height": 1200,
+    "page": 2,
+    "source": "X4.png"
+  },
+  "p2-1": {
+    "width": 240,
+    "height": 240,
+    "page": 2,
+    "source": "X6.png"
+  },
+  "p2-2": {
+    "width": 258,
+    "height": 261,
+    "page": 2,
+    "source": "X8.png"
+  },
+  "p2-4": {
+    "width": 421,
+    "height": 410,
+    "page": 2,
+    "source": "X12.png"
+  },
+  "p2-5": {
+    "width": 240,
+    "height": 234,
+    "page": 2,
+    "source": "X14.png"
+  },
+  "p4-0": {
+    "width": 1800,
+    "height": 1800,
+    "page": 4,
+    "source": "X4.jpg"
+  },
+  "p5-0": {
+    "width": 1800,
+    "height": 1275,
+    "page": 5,
+    "source": "X4.png"
+  },
+  "p6-0": {
+    "width": 534,
+    "height": 526,
+    "page": 6,
+    "source": "X4.png"
+  },
+  "p6-1": {
+    "width": 540,
+    "height": 540,
+    "page": 6,
+    "source": "X6.png"
+  },
+  "p8-0": {
+    "width": 1438,
+    "height": 560,
+    "page": 8,
+    "source": "X4.jpg"
+  },
+  "p8-1": {
+    "width": 1637,
+    "height": 1092,
+    "page": 8,
+    "source": "X7.png"
+  },
+  "p9-0": {
+    "width": 1800,
+    "height": 1350,
+    "page": 9,
+    "source": "X4.jpg"
+  },
+  "p10-0": {
+    "width": 1800,
+    "height": 1184,
+    "page": 10,
+    "source": "X6.jpg"
+  },
+  "p10-1": {
+    "width": 1255,
+    "height": 1800,
+    "page": 10,
+    "source": "X8.png"
+  },
+  "p10-2": {
+    "width": 888,
+    "height": 900,
+    "page": 10,
+    "source": "X10.jpg"
+  },
+  "p10-3": {
+    "width": 407,
+    "height": 1048,
+    "page": 10,
+    "source": "X11.jpg"
+  },
+  "p11-0": {
+    "width": 1280,
+    "height": 960,
+    "page": 11,
+    "source": "X6.jpg"
+  },
+  "p11-1": {
+    "width": 900,
+    "height": 700,
+    "page": 11,
+    "source": "X8.jpg"
+  },
+  "p12-0": {
+    "width": 1280,
+    "height": 960,
+    "page": 12,
+    "source": "X6.jpg"
+  },
+  "p13-0": {
+    "width": 1280,
+    "height": 960,
+    "page": 13,
+    "source": "X6.jpg"
+  },
+  "p13-1": {
+    "width": 900,
+    "height": 700,
+    "page": 13,
+    "source": "X8.jpg"
+  },
+  "p14-0": {
+    "width": 535,
+    "height": 496,
+    "page": 14,
+    "source": "X4.png"
+  },
+  "p16-0": {
+    "width": 203,
+    "height": 347,
+    "page": 16,
+    "source": "X6.jpg"
+  },
+  "p16-1": {
+    "width": 579,
+    "height": 533,
+    "page": 16,
+    "source": "X8.jpg"
+  },
+  "p16-2": {
+    "width": 493,
+    "height": 580,
+    "page": 16,
+    "source": "X9.jpg"
+  },
+  "p16-3": {
+    "width": 985,
+    "height": 801,
+    "page": 16,
+    "source": "X10.jpg"
+  },
+  "p16-4": {
+    "width": 263,
+    "height": 247,
+    "page": 16,
+    "source": "X11.jpg"
+  },
+  "p16-5": {
+    "width": 1800,
+    "height": 1578,
+    "page": 16,
+    "source": "X12.png"
+  },
+  "p17-0": {
+    "width": 1041,
+    "height": 424,
+    "page": 17,
+    "source": "X6.jpg"
+  },
+  "p18-0": {
+    "width": 1743,
+    "height": 1153,
+    "page": 18,
+    "source": "X6.jpg"
+  },
+  "p18-1": {
+    "width": 841,
+    "height": 503,
+    "page": 18,
+    "source": "X8.jpg"
+  },
+  "p18-2": {
+    "width": 555,
+    "height": 939,
+    "page": 18,
+    "source": "X9.jpg"
+  },
+  "p19-0": {
+    "width": 1800,
+    "height": 1268,
+    "page": 19,
+    "source": "X4.png"
+  },
+  "p20-0": {
+    "width": 1800,
+    "height": 1269,
+    "page": 20,
+    "source": "X4.png"
+  },
+  "p21-0": {
+    "width": 1136,
+    "height": 943,
+    "page": 21,
+    "source": "X5.png"
+  },
+  "p22-0": {
+    "width": 981,
+    "height": 338,
+    "page": 22,
+    "source": "X12.png"
+  },
+  "p22-1": {
+    "width": 1441,
+    "height": 909,
+    "page": 22,
+    "source": "X17.png"
+  },
+  "p22-2": {
+    "width": 1106,
+    "height": 509,
+    "page": 22,
+    "source": "X23.png"
+  },
+  "p22-3": {
+    "width": 1320,
+    "height": 930,
+    "page": 22,
+    "source": "X30.jpg"
+  },
+  "p22-4": {
+    "width": 384,
+    "height": 216,
+    "page": 22,
+    "source": "X99.png"
+  },
+  "p23-0": {
+    "width": 1223,
+    "height": 696,
+    "page": 23,
+    "source": "X7.jpg"
+  },
+  "p23-1": {
+    "width": 1223,
+    "height": 696,
+    "page": 23,
+    "source": "X9.jpg"
+  },
+  "p24-0": {
+    "width": 1716,
+    "height": 1235,
+    "page": 24,
+    "source": "X4.jpg"
+  },
+  "p24-1": {
+    "width": 1370,
+    "height": 1000,
+    "page": 24,
+    "source": "X6.jpg"
+  },
+  "p24-2": {
+    "width": 983,
+    "height": 1316,
+    "page": 24,
+    "source": "X7.jpg"
+  },
+  "p25-0": {
+    "width": 1800,
+    "height": 1350,
+    "page": 25,
+    "source": "X4.png"
+  },
+  "p25-1": {
+    "width": 960,
+    "height": 720,
+    "page": 25,
+    "source": "X7.png"
+  },
+  "p25-2": {
+    "width": 640,
+    "height": 480,
+    "page": 25,
+    "source": "X9.png"
+  },
+  "p25-3": {
+    "width": 960,
+    "height": 720,
+    "page": 25,
+    "source": "X11.png"
+  },
+  "p25-4": {
+    "width": 642,
+    "height": 718,
+    "page": 25,
+    "source": "X21.png"
+  },
+  "p26-0": {
+    "width": 1254,
+    "height": 1254,
+    "page": 26,
+    "source": "X5.jpg"
+  },
+  "p26-1": {
+    "width": 1800,
+    "height": 569,
+    "page": 26,
+    "source": "X9.png"
+  },
+  "p27-0": {
+    "width": 627,
+    "height": 627,
+    "page": 27,
+    "source": "X4.png"
+  },
+  "p27-1": {
+    "width": 900,
+    "height": 700,
+    "page": 27,
+    "source": "X7.jpg"
+  },
+  "p27-2": {
+    "width": 900,
+    "height": 700,
+    "page": 27,
+    "source": "X8.png"
+  },
+  "p27-3": {
+    "width": 480,
+    "height": 372,
+    "page": 27,
+    "source": "X9.png"
+  },
+  "p27-4": {
+    "width": 570,
+    "height": 442,
+    "page": 27,
+    "source": "X11.jpg"
+  },
+  "p27-5": {
+    "width": 460,
+    "height": 816,
+    "page": 27,
+    "source": "X12.png"
+  },
+  "p27-6": {
+    "width": 816,
+    "height": 460,
+    "page": 27,
+    "source": "X14.png"
+  },
+  "p27-7": {
+    "width": 576,
+    "height": 446,
+    "page": 27,
+    "source": "X32.png"
+  },
+  "p27-8": {
+    "width": 720,
+    "height": 350,
+    "page": 27,
+    "source": "X39.png"
+  },
+  "p27-9": {
+    "width": 240,
+    "height": 240,
+    "page": 27,
+    "source": "X41.png"
+  },
+  "p27-11": {
+    "width": 600,
+    "height": 467,
+    "page": 27,
+    "source": "X47.png"
+  },
+  "p27-12": {
+    "width": 371,
+    "height": 480,
+    "page": 27,
+    "source": "X49.jpg"
+  },
+  "p27-13": {
+    "width": 669,
+    "height": 377,
+    "page": 27,
+    "source": "X50.png"
+  },
+  "p27-14": {
+    "width": 600,
+    "height": 466,
+    "page": 27,
+    "source": "X62.png"
+  },
+  "p27-15": {
+    "width": 900,
+    "height": 700,
+    "page": 27,
+    "source": "X64.png"
+  },
+  "p28-0": {
+    "width": 1069,
+    "height": 679,
+    "page": 28,
+    "source": "X4.jpg"
+  },
+  "p29-11": {
+    "width": 509,
+    "height": 354,
+    "page": 29,
+    "source": "X16.jpg"
+  },
+  "p29-12": {
+    "width": 609,
+    "height": 236,
+    "page": 29,
+    "source": "X18.png"
+  },
+  "p29-13": {
+    "width": 482,
+    "height": 265,
+    "page": 29,
+    "source": "X21.jpg"
+  },
+  "p29-14": {
+    "width": 452,
+    "height": 320,
+    "page": 29,
+    "source": "X23.jpg"
+  },
+  "p29-15": {
+    "width": 612,
+    "height": 787,
+    "page": 29,
+    "source": "X24.png"
+  },
+  "p29-16": {
+    "width": 454,
+    "height": 283,
+    "page": 29,
+    "source": "X26.jpg"
+  },
+  "p29-17": {
+    "width": 252,
+    "height": 218,
+    "page": 29,
+    "source": "X27.jpg"
+  },
+  "p30-0": {
+    "width": 1229,
+    "height": 922,
+    "page": 30,
+    "source": "X4.png"
+  },
+  "p30-1": {
+    "width": 820,
+    "height": 615,
+    "page": 30,
+    "source": "X6.png"
+  },
+  "p30-2": {
+    "width": 1024,
+    "height": 768,
+    "page": 30,
+    "source": "X7.png"
+  },
+  "p32-0": {
+    "width": 473,
+    "height": 365,
+    "page": 32,
+    "source": "X4.png"
+  },
+  "p32-1": {
+    "width": 720,
+    "height": 872,
+    "page": 32,
+    "source": "X7.png"
+  },
+  "p32-2": {
+    "width": 720,
+    "height": 872,
+    "page": 32,
+    "source": "X8.png"
+  },
+  "p33-0": {
+    "width": 1014,
+    "height": 1433,
+    "page": 33,
+    "source": "X4.png"
+  },
+  "p34-0": {
+    "width": 1273,
+    "height": 1800,
+    "page": 34,
+    "source": "X5.png"
+  },
+  "p36-0": {
+    "width": 1800,
+    "height": 1400,
+    "page": 36,
+    "source": "X6.jpg"
+  },
+  "p37-0": {
+    "width": 1006,
+    "height": 1300,
+    "page": 37,
+    "source": "X4.jpg"
+  },
+  "p37-1": {
+    "width": 1363,
+    "height": 1800,
+    "page": 37,
+    "source": "X6.jpg"
+  },
+  "p37-2": {
+    "width": 1601,
+    "height": 1134,
+    "page": 37,
+    "source": "X7.jpg"
+  },
+  "p37-3": {
+    "width": 495,
+    "height": 1384,
+    "page": 37,
+    "source": "X8.jpg"
+  },
+  "p38-0": {
+    "width": 1600,
+    "height": 1200,
+    "page": 38,
+    "source": "X4.jpg"
+  },
+  "p38-1": {
+    "width": 1600,
+    "height": 1200,
+    "page": 38,
+    "source": "X6.jpg"
+  },
+  "p38-2": {
+    "width": 1800,
+    "height": 1350,
+    "page": 38,
+    "source": "X7.jpg"
+  },
+  "p43-0": {
+    "width": 1417,
+    "height": 1433,
+    "page": 43,
+    "source": "X4.png"
+  },
+  "p44-0": {
+    "width": 1800,
+    "height": 1400,
+    "page": 44,
+    "source": "X4.png"
+  },
+  "p45-0": {
+    "width": 820,
+    "height": 615,
+    "page": 45,
+    "source": "X4.png"
+  },
+  "p45-1": {
+    "width": 1800,
+    "height": 1350,
+    "page": 45,
+    "source": "X6.png"
+  },
+  "p45-2": {
+    "width": 1229,
+    "height": 922,
+    "page": 45,
+    "source": "X7.png"
+  },
+  "p46-0": {
+    "width": 960,
+    "height": 720,
+    "page": 46,
+    "source": "X4.jpg"
+  },
+  "p46-1": {
+    "width": 960,
+    "height": 720,
+    "page": 46,
+    "source": "X6.jpg"
+  },
+  "p46-2": {
+    "width": 960,
+    "height": 720,
+    "page": 46,
+    "source": "X7.jpg"
+  },
+  "p47-0": {
+    "width": 960,
+    "height": 720,
+    "page": 47,
+    "source": "X4.jpg"
+  },
+  "p47-1": {
+    "width": 960,
+    "height": 720,
+    "page": 47,
+    "source": "X6.jpg"
+  },
+  "p47-2": {
+    "width": 960,
+    "height": 720,
+    "page": 47,
+    "source": "X7.jpg"
+  },
+  "p48-0": {
+    "width": 1800,
+    "height": 1401,
+    "page": 48,
+    "source": "X4.png"
+  },
+  "p49-0": {
+    "width": 1800,
+    "height": 1400,
+    "page": 49,
+    "source": "X4.jpg"
+  },
+  "p49-1": {
+    "width": 1800,
+    "height": 1400,
+    "page": 49,
+    "source": "X6.png"
+  },
+  "p50-0": {
+    "width": 1672,
+    "height": 941,
+    "page": 50,
+    "source": "X4.jpg"
+  }
+}
