@@ -1,0 +1,20 @@
+{
+  "name": "joanaps-servicios",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node backend/src/server.js",
+    "dev": "node --env-file-if-exists=.env --watch backend/src/server.js",
+    "test": "node --test backend/test/*.test.js",
+    "check": "node --check backend/src/server.js && node --check backend/src/app.js && node --check dist/script.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "resend": "^6.30.0"
+  }
+}

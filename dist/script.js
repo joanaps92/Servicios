@@ -43,29 +43,40 @@
     if (select) select.value = link.dataset.service === 'web' ? 'Página web' : link.dataset.service === 'automatizacion' ? 'Automatización' : 'Herramienta web';
   }));
 
+  let contactState = 'idle';
+  const setContactState = (state, message = '') => {
+    contactState = state;
+    form.dataset.state = state;
+    form.setAttribute('aria-busy', String(state === 'sending'));
+    form.querySelector('button[type="submit"]').disabled = state === 'sending';
+    status.textContent = message;
+    status.className = `form-status ${state === 'success' || state === 'error' ? state : ''}`;
+  };
   form?.addEventListener('focusin', () => trackEvent('contact_form_start'), { once: true });
+  if (form) setContactState('idle');
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (contactState === 'sending') return;
+    for (const field of ['name', 'email', 'phone', 'message']) {
+      form.elements[field].value = form.elements[field].value.trim();
+    }
     if (!form.checkValidity()) { form.reportValidity(); return; }
     const data = Object.fromEntries(new FormData(form).entries());
-    if (data.website) return;
-    const submit = form.querySelector('button[type="submit"]');
-    submit.disabled = true;
-    status.textContent = 'Enviando solicitud...';
-    status.className = 'form-status';
+    setContactState('sending', 'Enviando solicitud...');
     trackEvent('contact_form_submit');
     try {
-      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ name: data.name, email: data.email, phone: data.phone || '', projectType: data.projectType, budget: data.budget || '', message: data.message }) });
-      if (!response.ok) throw new Error('contact_request_failed');
+      const response = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify({ name: data.name, email: data.email, phone: data.phone || '', projectType: data.projectType, budget: data.budget || '', message: data.message, website: data.website || '' }) });
+      if (response.status === 429) throw new Error('rate_limited');
+      const result = await response.json();
+      if (!response.ok || result.success !== true) throw new Error('contact_request_failed');
       form.reset();
-      status.textContent = 'Gracias. He recibido tu mensaje y contactaré contigo lo antes posible.';
-      status.className = 'form-status success';
+      setContactState('success', 'Gracias. Tu mensaje se ha enviado correctamente. Contactaré contigo lo antes posible.');
       trackEvent('contact_form_success');
     } catch (error) {
-      status.textContent = 'No se ha podido enviar el mensaje. Inténtalo de nuevo o contacta por WhatsApp.';
-      status.className = 'form-status error';
-      trackEvent('contact_form_error', { reason: error.message });
-    } finally { submit.disabled = false; }
+      const limited = error.message === 'rate_limited';
+      setContactState('error', limited ? 'Has enviado demasiadas solicitudes. Inténtalo dentro de 15 minutos.' : 'No se ha podido enviar el mensaje. Tus datos se conservan para que puedas intentarlo de nuevo.');
+      trackEvent('contact_form_error', { reason: limited ? 'rate_limited' : 'contact_request_failed' });
+    }
   });
 
   trackEvent('services_view');

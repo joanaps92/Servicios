@@ -1,6 +1,12 @@
 # Servicios
 Landing page para servicios prestados
 
+## Backend de contacto
+
+La integración Node/Express con Resend, los comandos de desarrollo y las
+instrucciones de despliegue en Coolify están en [backend/README.md](backend/README.md).
+El frontend existente es HTML/JavaScript estático y se conserva.
+
 # Landing de servicios — joanaps.dev/servicios
 
 ## 1. Objetivo
