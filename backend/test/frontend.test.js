@@ -27,6 +27,20 @@ function mount(fetch) {
   });
   return { form, button, status, resets: () => resets, submit: () => listeners.submit({ preventDefault() {} }) };
 }
+test('WhatsApp button opens a chat with the configured Spanish phone number', () => {
+  const listeners = {};
+  const link = { href: '', addEventListener: (name, handler) => { listeners[name] = handler; } };
+  vm.runInNewContext(script, {
+    document: { querySelector: () => null, querySelectorAll: selector => selector === '.whatsapp-link' ? [link] : [] },
+    window: { SERVICES_CONFIG: { whatsappPhone: '655867055' }, dispatchEvent() {} },
+    CustomEvent: class {},
+  });
+  const url = new URL(link.href);
+  assert.equal(url.origin, 'https://wa.me');
+  assert.equal(url.pathname, '/34655867055');
+  assert.match(url.searchParams.get('text'), /joanaps\.dev/);
+  listeners.click();
+});
 test('frontend prevents duplicate sends, forwards honeypot and clears only on confirmed success', async () => {
   let resolve;
   let calls = 0;

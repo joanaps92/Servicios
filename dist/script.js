@@ -12,7 +12,10 @@
   };
 
   const whatsappHref = () => {
-    const phone = String(config.whatsappPhone || '').replace(/[^\d]/g, '');
+    let phone = String(config.whatsappPhone || '').trim().replace(/[^\d]/g, '');
+    if (phone.startsWith('00')) phone = phone.slice(2);
+    // WhatsApp requires international format. The configured number is Spanish.
+    if (/^[6789]\d{8}$/.test(phone)) phone = `34${phone}`;
     return phone ? `https://wa.me/${phone}?text=${encodeURIComponent(whatsappText)}` : '#contacto';
   };
 
@@ -20,7 +23,7 @@
     link.href = whatsappHref();
     link.addEventListener('click', () => {
       trackEvent('whatsapp_click');
-      if (!config.whatsappPhone) {
+      if (!link.href.startsWith('https://wa.me/')) {
         status.textContent = 'Puedes escribirme desde el formulario mientras se configura WhatsApp.';
         status.className = 'form-status';
       }

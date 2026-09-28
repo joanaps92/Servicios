@@ -41,14 +41,21 @@ del SDK, honeypot, límite por IP, proxy y rutas estáticas.
    No usar `true`, ni confiar indiscriminadamente en cabeceras del visitante.
    El proxy debe reemplazar o normalizar X-Forwarded-For y el puerto del
    contenedor no debe quedar expuesto directamente a Internet.
-6. Enrutar `/api/contact` y `/servicios/` hacia este contenedor en `joanaps.dev`.
-   Si la raíz del dominio pertenece a otra aplicación, conservarla y configurar
-   estas dos rutas en el proxy existente, sin eliminar el prefijo `/api`.
+6. Enrutar `/api/contact`, `/health` y `/servicios/` hacia este contenedor en
+   `joanaps.dev`. Si la raíz del dominio pertenece a otra aplicación, conservarla
+   y configurar estas rutas en el proxy existente, sin eliminar el prefijo `/api`.
 7. Redesplegar y comprobar `/health`, logs y el formulario público.
 
 GitHub Pages continúa publicando solo `dist`: no puede ejecutar este backend.
 Subir los archivos a GitHub no activa por sí solo la integración de Coolify.
 No se han modificado credenciales ni configuración remota de Coolify.
+
+Diagnóstico del 28-09-2026: la página pública `/servicios` responde 200, mientras
+`/api/contact` y `/health` responden 503. Ese resultado indica que el upstream del
+backend no está disponible o que esas rutas no apuntan al contenedor. La entrega
+de correo no puede funcionar hasta que el contenedor arranque en Coolify con sus
+variables y el proxy dirija `/api/contact` y `/health` a él. La web estática en
+GitHub Pages tampoco puede servir `/api/contact`.
 
 El remitente fijo es `JoanAPS Servicios <contacto@mail.joanaps.dev>` y requiere
 ese dominio verificado en Resend. El destinatario sale de `CONTACT_EMAIL`;
