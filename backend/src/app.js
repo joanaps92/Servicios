@@ -21,6 +21,14 @@ export function createApp({ sendEmail, trustProxy = false, logger = console }) {
   }, express.json({ limit: '32kb' }), createContactController(sendEmail, logger));
   app.use('/api', (_req, res) => res.status(404).json({ success: false, message: 'Ruta no encontrada' }));
   const dist = fileURLToPath(new URL('../../dist/', import.meta.url));
+  // Serve the declared canonical directly; Express static otherwise adds a slash.
+  app.get('/servicios', (req, res) => {
+    if (req.path.endsWith('/')) {
+      const query = req.originalUrl.slice(req.originalUrl.indexOf('?'));
+      return res.redirect(301, '/servicios' + (req.originalUrl.includes('?') ? query : ''));
+    }
+    return res.sendFile(`${dist}/index.html`);
+  });
   // Same origin for the site and API; no CORS or public keys required.
   app.use('/servicios', express.static(dist));
   app.use(express.static(dist));
