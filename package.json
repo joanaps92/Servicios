@@ -10,11 +10,18 @@
     "start": "node backend/src/server.js",
     "dev": "node --env-file-if-exists=.env --watch backend/src/server.js",
     "test": "node --test backend/test/*.test.js",
-    "check": "node --check backend/src/server.js && node --check backend/src/app.js && node --check dist/script.js"
+    "check": "node --check backend/src/server.js && node --check backend/src/app.js && node --check backend/src/contact-card/profile.js && node --check backend/src/contact-card/page.js && node --check backend/src/contact-card/routes.js && node --check backend/src/contact-card/wallet.js && node --check scripts/build-contact-assets.js && node --check dist/script.js",
+    "build": "node scripts/build-contact-assets.js"
   },
   "dependencies": {
     "express": "^5.2.1",
     "express-rate-limit": "^8.7.0",
+    "passkit-generator": "^3.6.1",
+    "qrcode": "^1.5.4",
     "resend": "^6.30.0"
+  },
+  "devDependencies": {
+    "jsqr": "^1.4.0",
+    "pngjs": "^7.0.0"
   }
 }

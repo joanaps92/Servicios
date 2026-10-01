@@ -77,5 +77,64 @@ el error 429 y que usuarios con IPs diferentes no compartan accidentalmente
 la cuota. La prueba real queda pendiente hasta desplegar en el entorno con
 las variables y el dominio verificado; las pruebas locales no certifican entrega.
 
+## Tarjeta digital y Apple Wallet
+
+El backend también sirve `/contacto`, la vCard en
+`/contacto/joan-albert-perez-soler.vcf`, el pase en `/wallet/joan.pkpass` y los
+QR en `/qr/contacto.svg` y `/qr/contacto.png`. El QR y el código del pase apuntan
+al mismo destino estable: `https://joanaps.dev/contacto`. `CONTACT_EMAIL` es el
+único origen del correo para la página, la vCard y el pase.
+
+`npm run build` crea los QR y los iconos PNG del pase dentro de `dist/`; el
+Dockerfile ya copia esa carpeta. Tras cambiar el destino o rehacer iconos, vuelve
+a ejecutar el build y publica el contenido actualizado.
+
+Para habilitar el pase real:
+
+1. En Apple Developer, confirma una membresía activa del Apple Developer Program
+   y crea un Pass Type ID, por ejemplo `pass.dev.joanaps.contact`.
+2. Crea el certificado Pass Type ID para el equipo correspondiente y descarga
+   el certificado WWDR vigente que indica Apple. Exporta el certificado de pase
+   y su clave privada desde Acceso a Llaveros como un `.p12` protegido con
+   contraseña. Conserva ambos archivos fuera del repositorio.
+3. Convierte el `.p12` a PEM en un entorno de confianza, sin copiar certificados
+   ni contraseñas al Git. Por ejemplo, en una terminal con OpenSSL:
+
+   ```sh
+   openssl pkcs12 -in wallet.p12 -clcerts -nokeys -out wallet-cert.pem
+   openssl pkcs12 -in wallet.p12 -nocerts -out wallet-key.pem
+   ```
+
+   El segundo comando conserva la protección de la clave; la contraseña de
+   exportación se configura en Coolify como `APPLE_WALLET_KEY_PASSWORD`.
+4. En las [guías oficiales del badge de Apple](https://developer.apple.com/wallet/add-to-apple-wallet-guidelines/), descarga el SVG oficial en español y acepta
+   su licencia de arte con la cuenta de Developer que lo usará. Sube
+   ese archivo a un volumen secreto de Coolify. El servidor muestra el botón
+   solo si encuentra certificados válidos y el badge oficial.
+5. En Coolify configura estas variables de ejecución: `APPLE_PASS_TYPE_IDENTIFIER`,
+   `APPLE_TEAM_IDENTIFIER`, `APPLE_WALLET_CERT_PATH`, `APPLE_WALLET_KEY_PATH`,
+   `APPLE_WALLET_WWDR_PATH`, `APPLE_WALLET_KEY_PASSWORD` y
+   `APPLE_WALLET_BADGE_PATH`. Para los tres paths usa rutas absolutas de los
+   ficheros montados como secretos. `CONTACT_EMAIL` debe contener el correo de
+   contacto existente y `APPLE_WALLET_SERIAL_NUMBER` puede quedarse en su valor
+   por defecto. No configures certificados en argumentos de build.
+6. En el enrutador público del dominio, dirige `/contacto` y
+   `/contacto/*`, `/wallet/*`, `/qr/*` y `/wallet-assets/*` hacia el contenedor
+   Express, igual que las rutas existentes de la API. Si GitHub Pages recibe
+   primero esas peticiones, ajusta el proxy o el enrutamiento del dominio para
+   que estas rutas dinámicas lleguen a Coolify. GitHub Pages por sí solo solo
+   sirve `dist` y no puede generar la página con el email configurado ni firmar
+   un `.pkpass`.
+7. Redespliega y comprueba en un iPhone `/contacto`, la descarga del pase y la
+   instalación en Wallet. El arranque valida vigencia, Pass Type ID, Team ID,
+   certificado WWDR y correspondencia entre certificado y clave. Si falta una
+   variable o la validación falla, el servidor oculta el botón y responde 503
+   en la descarga; solo registra un mensaje genérico.
+
+No se generan certificados de Apple en el repositorio y la instalación final
+del pase depende de la cuenta, certificados y prueba en un dispositivo Apple.
+La implementación de la tarjeta y sus descargas sí puede verificarse antes de
+disponer de esos secretos.
+
 Documentación de referencia: [SDK oficial de Resend](https://github.com/resend/resend-node)
 y [configuración de proxies para el limitador](https://github.com/express-rate-limit/express-rate-limit/wiki/Troubleshooting-Proxy-Issues).

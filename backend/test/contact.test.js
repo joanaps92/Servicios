@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import { once } from 'node:events';
 import { createApp } from '../src/app.js';
 import { createEmailService } from '../src/services/email.service.js';
+import { createVcard } from '../src/contact-card/profile.js';
+import { passTemplate } from '../src/contact-card/wallet.js';
 
 const valid = { name: 'Cliente', email: 'cliente@example.com', message: 'Necesito una web', projectType: 'Página web', budget: '200–400 €' };
 async function fixture(t, sendEmail = async () => {}, options = {}) {
@@ -91,4 +93,37 @@ test('serves site, deep project routes, health and API 404', async t => {
   for (const path of ['/health', '/servicios/', '/servicios/proyectos/catalina/proyectos/imago/']) assert.equal((await fetch(base + path)).status, 200);
   assert.equal((await fetch(base + '/api/unknown')).status, 404);
   assert.equal((await fetch(base + '/.env')).status, 404);
+});
+
+test('contact page, vCard, wallet error state and QR are served with the expected data', async t => {
+  const { base } = await fixture(t, async () => {}, { contactEmail: 'joan@example.com' });
+  const page = await fetch(`${base}/contacto`);
+  assert.equal(page.status, 200);
+  assert.match(page.headers.get('content-type'), /text\/html/);
+  const html = await page.text();
+  for (const text of ['Joan Albert Pérez Soler', 'tel:+34655867055', 'https://wa.me/34655867055', 'joan@example.com', '/qr/contacto.svg']) assert.ok(html.includes(text), text);
+  assert.ok(!html.includes('Añadir a Apple Wallet'));
+  const card = await fetch(`${base}/contacto/joan-albert-perez-soler.vcf`);
+  assert.equal(card.status, 200);
+  assert.match(card.headers.get('content-type'), /text\/vcard/);
+  assert.match(await card.text(), /FN:Joan Albert Pérez Soler[\r\n]+ORG:joanaps\.dev/);
+  assert.equal((await fetch(`${base}/wallet/joan.pkpass`)).status, 503);
+  assert.match((await fetch(`${base}/qr/contacto.svg`)).headers.get('content-type'), /image\/svg\+xml/);
+});
+
+test('vCard safely escapes address fields and folds UTF-8 lines to 75 octets', () => {
+  const card = createVcard('joan@example.com');
+  assert.ok(card.endsWith('\r\n'));
+  for (const line of card.slice(0, -2).split('\r\n')) assert.ok(Buffer.byteLength(line) <= 75, `${Buffer.byteLength(line)} octets`);
+  assert.match(card, /EMAIL;TYPE=INTERNET:joan@example\.com/);
+  assert.throws(() => createVcard('bad\r\nBCC:other@example.com'));
+});
+
+test('Apple pass metadata uses the canonical QR and profile fields', () => {
+  const data = passTemplate({ APPLE_PASS_TYPE_IDENTIFIER: 'pass.dev.joanaps.contact', APPLE_TEAM_IDENTIFIER: 'TEAM123' }, 'joan@example.com');
+  assert.equal(data.passTypeIdentifier, 'pass.dev.joanaps.contact');
+  assert.equal(data.teamIdentifier, 'TEAM123');
+  assert.equal(data.barcodes[0].message, 'https://joanaps.dev/contacto');
+  assert.equal(data.generic.primaryFields[0].value, 'Joan Albert Pérez Soler');
+  assert.equal(data.generic.backFields.find(field => field.key === 'email').value, 'joan@example.com');
 });

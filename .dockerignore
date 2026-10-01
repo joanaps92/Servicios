@@ -6,3 +6,8 @@ tmp
 content
 scripts
 backend/test
+*.pem
+*.p12
+*.pfx
+*.key
+secrets
