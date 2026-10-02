@@ -4,3 +4,9 @@ node_modules/
 !.env.example
 coverage/
 tmp/
+*.pem
+*.p12
+*.pfx
+*.key
+*.pkpass
+secrets/

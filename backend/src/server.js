@@ -1,6 +1,7 @@
 import { createApp } from './app.js';
 import { EMAIL_REGEX } from './controllers/contact.controller.js';
 import { createEmailService } from './services/email.service.js';
+import { prepareWallet } from './contact-card/wallet.js';
 
 const { RESEND_API_KEY, CONTACT_EMAIL, TRUST_PROXY = '', PORT = '3000' } = process.env;
 if (!RESEND_API_KEY || !CONTACT_EMAIL || !EMAIL_REGEX.test(CONTACT_EMAIL) || /[\r\n]/.test(CONTACT_EMAIL)) {
@@ -11,6 +12,8 @@ if (!/^\d+$/.test(PORT) || Number(PORT) < 1 || Number(PORT) > 65535) throw new E
 // Explicit proxy addresses/subnets only; never trust all forwarded headers.
 if (/^(true|\d+)$/i.test(TRUST_PROXY)) throw new Error('TRUST_PROXY debe contener IPs o rangos CIDR de proxies de confianza');
 const app = createApp({
+  contactEmail: CONTACT_EMAIL,
+  wallet: await prepareWallet(process.env, CONTACT_EMAIL),
   sendEmail: createEmailService({ apiKey: RESEND_API_KEY, contactEmail: CONTACT_EMAIL }),
   trustProxy: TRUST_PROXY ? TRUST_PROXY.split(',').map(value => value.trim()) : false,
 });
